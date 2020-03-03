@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
         movementStream.Subscribe(movement => {
                 playerModel.direction.Value = movement;
-
+  
         }).AddTo(this);
     }
 

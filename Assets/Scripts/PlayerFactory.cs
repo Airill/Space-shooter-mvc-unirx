@@ -12,9 +12,6 @@ public class PlayerFactory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //this.playerModel = new PlayerModel();
-        
-        //this.playerView = GetComponentInChildren<PlayerView>();
         
         this.playerController = GetComponentInChildren<PlayerController>();
         Debug.Log(playerController);

@@ -18,11 +18,8 @@ public class PlayerView : MonoBehaviour
 
     public void SetDirection(Vector3 dir) {
         Rigidbody rb = GetComponent<Rigidbody>();
-        Debug.Log((rb != null) + "+");
-        Debug.Log(rb.velocity != null);
         if (dir != null) {
-            rb.velocity = new UnityEngine.Vector3(dir.x, dir.y, dir.z);
-            Debug.Log(rb.velocity);
+            rb.velocity = new UnityEngine.Vector3(dir.x * playerModel.speed_base, 0.0f, dir.z * playerModel.speed_base);
         }
         
     }
