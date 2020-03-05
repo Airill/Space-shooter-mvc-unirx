@@ -18,7 +18,9 @@ public class WeaponController : MonoBehaviour
            .ThrottleFirst(TimeSpan.FromSeconds(weaponModel.fireRate))
            .Subscribe(_ => {
                var sh = Instantiate(shot, shotSpawn.position, shotSpawn.rotation) as GameObject;
-               ((ProjectileController)sh.GetComponent<ProjectileController>()).OnSpawn();
+               var pc = ((ProjectileController)sh.GetComponentInChildren<ProjectileController>());
+               pc.OnSpawn();
+
                //  GetComponent<AudioSource>().Play();
            }).AddTo(this); 
 

@@ -11,15 +11,14 @@ public class ProjectileController : MonoBehaviour
     void Start()
     {
         
+       
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     public void OnSpawn() {
+        var rb = projectileView.GetComponent<Rigidbody>();
 
+        rb.velocity = transform.forward * projectileModel.speed;
     }
 }

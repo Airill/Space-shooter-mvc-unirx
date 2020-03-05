@@ -9,7 +9,7 @@ public class ProjectileFactory : MonoBehaviour
     public ProjectileView projectileView { get; private set; }
 
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
 
         this.projectileController = GetComponentInChildren<ProjectileController>();
         projectileModel = new ProjectileModel();

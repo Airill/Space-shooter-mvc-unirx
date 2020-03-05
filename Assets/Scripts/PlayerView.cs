@@ -9,7 +9,7 @@ public class PlayerView : MonoBehaviour
 
     private void Start() {
 
-        playerModel.direction // ReactiveProperty count
+        playerModel.direction // ReactiveProperty direction
            .ObserveEveryValueChanged(x => x.Value) // отслеживаем изменения в нем
            .Subscribe(xs => { // подписываемся
                SetDirection(xs);

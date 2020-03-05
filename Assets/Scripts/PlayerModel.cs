@@ -10,7 +10,7 @@ public class PlayerModel
     
 
     // Current values
-    public int lives;
+    public int lives = 3;
     public ReactiveProperty<Vector3> direction = new ReactiveProperty<Vector3>();
     public float tilt;
     public float fireRate;

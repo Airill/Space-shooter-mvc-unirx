@@ -28,7 +28,10 @@ public class PlayerController : MonoBehaviour
         }).AddTo(this);
     }
 
-
+    public void TakeDamage(int dmg) {
+        playerModel.lives -= dmg;
+        Debug.Log("Damage taken!");
+    }
 
     // Update is called once per frame
     void Update()
