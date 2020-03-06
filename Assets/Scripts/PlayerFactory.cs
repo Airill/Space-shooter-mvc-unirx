@@ -18,6 +18,7 @@ public class PlayerFactory : MonoBehaviour
         playerView = GetComponentInChildren<PlayerView>();
         playerController.playerView = playerView;
         playerView.playerModel = playerModel;
+        playerView.playerController = playerController;
     }
 
     // Update is called once per frame

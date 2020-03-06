@@ -9,17 +9,20 @@ public class AsteroidController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var rb = asteroidView.GetComponent<Rigidbody>();
-
-        rb.velocity = transform.forward * asteroidModel.speed * (-1);
-        rb.angularVelocity = Random.insideUnitSphere * asteroidModel.tumble;
-
-        Destroy(transform.root.gameObject, asteroidModel.lifetime);
+        OnSpawn();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+    public void OnSpawn() {
+        var rb = asteroidView.GetComponent<Rigidbody>();
+
+        rb.velocity = transform.forward * asteroidModel.speed * (-1);
+        rb.angularVelocity = Random.insideUnitSphere * asteroidModel.tumble;
+
+        Destroy(transform.root.gameObject, asteroidModel.lifetime);
     }
 }

@@ -8,9 +8,14 @@ public class PlayerController : MonoBehaviour
 {
     public PlayerModel playerModel { get; set; }
     public PlayerView playerView { get; set; }
+    Boundary boundary;
 
     void Start()
     {
+        boundary = new Boundary();
+        Debug.Log(boundary.xMax);
+        playerModel.position.Value = new Vector3(playerView.transform.position.x, playerView.transform.position.y, playerView.transform.position.z);
+
 
         // player moving
         var moveHorizontalStream = Observable.EveryFixedUpdate()
@@ -23,19 +28,19 @@ public class PlayerController : MonoBehaviour
             (horizontal, vertical) => new Vector3(horizontal, 0.0f, vertical));
 
         movementStream.Subscribe(movement => {
-                playerModel.direction.Value = movement;
-  
+            playerModel.movement.Value = movement;
+            playerModel.position.Value = new Vector3(Mathf.Clamp(playerView.rb.position.x, boundary.xMin, boundary.xMax), 0.0f, Mathf.Clamp(playerView.rb.position.z, boundary.zMin, boundary.zMax));
         }).AddTo(this);
+
+        
     }
 
     public void TakeDamage(int dmg) {
-        playerModel.lives -= dmg;
+        playerModel.lives.Value -= dmg;
         Debug.Log("Damage taken!");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+    public void PlayerDie() {
+        Debug.Log("Controller: player die");
     }
 }
