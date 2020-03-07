@@ -10,5 +10,5 @@ public class ProjectileModel
 
     // Current values
     public float speed = 20f;
-    public float lifetime = 3f;
+    public float lifetime = 2f;
 }

@@ -10,16 +10,18 @@ public class LevelController : MonoBehaviour
 
     public GameObject asteroidPrefab;
     private List<GameObject> asteroidRefs;
+    App app;
 
 
     void Start() {
-        App game = FindObjectOfType<App>();
-        
+        app = FindObjectOfType<App>();
 
-        StartCoroutine(SpawnAsteroids());
+        StartCoroutine(SpawnAsteroids());//Убрать!
 
 
-        game.playerFactory.playerModel.lives // ReactiveProperty movement
+
+
+        app.playerFactory.playerModel.lives // ReactiveProperty movement
           .ObserveEveryValueChanged(l => l.Value) // отслеживаем изменения в нем
           .Subscribe(l => { // подписываемся
                if (l <= 0) {
@@ -66,6 +68,8 @@ public class LevelController : MonoBehaviour
      
     public void LevelFail() {
         levelModel.data.inProgress = false;
+        app.ui_LevelFactory.ui_LevelController.LevelFail();
+        Debug.Log("LevelFail");
 
     }
     public void LevelComplete() {
@@ -127,7 +131,7 @@ public class LevelController : MonoBehaviour
             }
             else {
                 foreach (var a in asteroidRefs) {
-                 //   Destroy(a);
+                    Destroy(a);
                 }
                 break;
             }

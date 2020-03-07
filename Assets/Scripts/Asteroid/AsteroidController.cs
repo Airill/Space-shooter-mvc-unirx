@@ -9,7 +9,7 @@ public class AsteroidController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        OnSpawn();
+       // OnSpawn();
     }
 
     // Update is called once per frame

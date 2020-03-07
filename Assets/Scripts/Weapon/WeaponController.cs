@@ -12,14 +12,17 @@ public class WeaponController : MonoBehaviour
     public Transform shotSpawn;
 
     void Start() {
+        App app = FindObjectOfType<App>();
 
         Observable.EveryUpdate()
            .Where(_ => Input.GetButton("Fire1"))
            .ThrottleFirst(TimeSpan.FromSeconds(weaponModel.fireRate))
            .Subscribe(_ => {
-               var sh = Instantiate(shot, shotSpawn.position, shotSpawn.rotation) as GameObject;
-               var pc = ((ProjectileController)sh.GetComponentInChildren<ProjectileController>());
-               pc.OnSpawn();
+               if (app.levelFactory.levelModel.data.inProgress) {
+                   var sh = Instantiate(shot, shotSpawn.position, shotSpawn.rotation) as GameObject;
+                   var pc = ((ProjectileController)sh.GetComponentInChildren<ProjectileController>());
+                   pc.OnSpawn();
+               }
 
                //  GetComponent<AudioSource>().Play();
            }).AddTo(this); 

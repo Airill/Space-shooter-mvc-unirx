@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         boundary = new Boundary();
-        Debug.Log(boundary.xMax);
         playerModel.position.Value = new Vector3(playerView.transform.position.x, playerView.transform.position.y, playerView.transform.position.z);
 
 
@@ -31,8 +30,7 @@ public class PlayerController : MonoBehaviour
             playerModel.movement.Value = movement;
             playerModel.position.Value = new Vector3(Mathf.Clamp(playerView.rb.position.x, boundary.xMin, boundary.xMax), 0.0f, Mathf.Clamp(playerView.rb.position.z, boundary.zMin, boundary.zMax));
         }).AddTo(this);
-
-        
+       
     }
 
     public void TakeDamage(int dmg) {

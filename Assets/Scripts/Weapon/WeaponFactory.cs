@@ -9,7 +9,7 @@ public class WeaponFactory : MonoBehaviour
     public WeaponView weaponView { get; private set; }
 
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
 
         this.weaponController = GetComponentInChildren<WeaponController>();
         weaponModel = new WeaponModel();

@@ -9,6 +9,8 @@ public class App : MonoBehaviour
     public ProjectileFactory projectileFactory { get; private set; }
     public AsteroidFactory asteroidFactory { get; private set; }
     public LevelFactory levelFactory { get; private set; }
+    public UI_LevelFactory ui_LevelFactory { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,7 @@ public class App : MonoBehaviour
         projectileFactory = GetComponentInChildren<ProjectileFactory>();
         asteroidFactory = GetComponentInChildren<AsteroidFactory>();
         levelFactory = GetComponentInChildren<LevelFactory>();
+        ui_LevelFactory = GetComponentInChildren<UI_LevelFactory>();
     }
 
 

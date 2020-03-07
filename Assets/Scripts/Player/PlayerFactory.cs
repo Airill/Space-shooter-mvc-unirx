@@ -10,7 +10,7 @@ public class PlayerFactory : MonoBehaviour
     public PlayerView playerView { get; private set; }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         this.playerController = GetComponentInChildren<PlayerController>();
         playerModel = new PlayerModel();

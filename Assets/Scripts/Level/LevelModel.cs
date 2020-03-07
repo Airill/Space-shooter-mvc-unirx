@@ -8,7 +8,7 @@ public class LevelModel
     public LevelData data_base;
 
     public float genCoef_base = 10;
-    public Vector3 spawnValues = new Vector3(6f, 0f, 16f);
+    public Vector3 spawnValues = new Vector3(6f, 0f,6f);
 
     public int levelCount;
     public int currentLevel;

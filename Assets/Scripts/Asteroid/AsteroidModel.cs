@@ -12,7 +12,7 @@ public class AsteroidModel
     public float tumble_base = 5.0f;
 
     // Current values
-    public int damage = 3;
+    public int damage = 1;
     public int scoreValue = 120;
     public float speed = 5f;
     public float lifetime = 20f;

@@ -17,5 +17,6 @@ public class LevelFactory : MonoBehaviour
         levelView = GetComponentInChildren<LevelView>();
         levelController.levelView = levelView;
         levelView.levelModel = levelModel;
+        levelView.levelController = levelController;
     }
 }

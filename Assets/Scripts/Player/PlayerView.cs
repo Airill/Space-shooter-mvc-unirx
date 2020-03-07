@@ -36,13 +36,10 @@ public class PlayerView : MonoBehaviour
    }).AddTo(this);
     }
 
-
-
     public void SetDirection(Vector3 dir) {
         Rigidbody rb = GetComponent<Rigidbody>();
         if (dir != null) {
             rb.velocity = new UnityEngine.Vector3(dir.x * playerModel.speed, 0.0f, dir.z * playerModel.speed);
-            Debug.Log("rb.velocity = " + rb.velocity);
         }        
     }
     public void SetPosition(Vector3 pos) {
@@ -50,7 +47,6 @@ public class PlayerView : MonoBehaviour
 
         if (pos != null) {
             rb.position = new UnityEngine.Vector3(pos.x, 0.0f, pos.z);
-            Debug.Log("rb.position = " + rb.position);
         }
     }
 }
