@@ -19,8 +19,18 @@ public class LevelView : MonoBehaviour
       .ObserveEveryValueChanged(x => x.Value) // отслеживаем изменения в нем
       .Where(x => x <= 0)
       .Subscribe(_ => { // подписываемся
-          levelController.LevelFail();
+          levelController.PlayerDie();
       }).AddTo(this);
+
+
+
+        levelController.asteroids.ObserveAdd()
+            .Subscribe(x => {
+                Debug.Log(x.Value.name);
+                levelController.OnAsteroidSpawn(x.Value);
+            })
+            .AddTo(this);
+
     }
 
 
@@ -29,10 +39,11 @@ public class LevelView : MonoBehaviour
     }
     
     public void CompleteLevel() {
+        levelController.LevelComplete();
         Debug.Log("Completelevel!");
     }
 
     public void FailLevel() {
-
+        levelController.LevelFail();
     }
 }

@@ -29,8 +29,10 @@ public class Boundary
 [System.Serializable]
 public class LevelData
 {
+    public int levelNum;
+    public bool levelCompleted;
     public bool inProgress = true;
-    public int asteroidsLeft;
+    public int asteroidsLeft = 10;
     public int asteroids = 10;
     public float asteroidSpeedMultiplier = 1f;
     public float asteroidSpawnDelay = 1f;

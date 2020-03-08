@@ -9,14 +9,14 @@ public class LevelController : MonoBehaviour
     public LevelView levelView { get; set; }
 
     public GameObject asteroidPrefab;
-    private List<GameObject> asteroidRefs;
+    public ReactiveCollection<GameObject> asteroids = new ReactiveCollection<GameObject>(); //for Unirx
     App app;
 
 
     void Start() {
         app = FindObjectOfType<App>();
 
-        StartCoroutine(SpawnAsteroids());//Убрать!
+        LevelStart();
 
 
 
@@ -32,15 +32,10 @@ public class LevelController : MonoBehaviour
 
     public void LevelStart() {
        levelModel.score = levelModel.score_base;
-       // Notify(Q_Notification.UiScoreChange, new object[] { m.score });   //Notify to Ui_GameController
         StartCoroutine(SpawnAsteroids()); 
     }
 
-   /* public void LevelNext() {
-        Log("LevelNext");
-        if (m.currentLevel < m.levelCount)
-            v.GenerateLevel(m.currentLevel + 1); 
-    }    */   
+ 
            
     public void levelRestart() {
         levelView.GenerateLevel(levelModel.currentLevel);
@@ -73,31 +68,28 @@ public class LevelController : MonoBehaviour
 
     }
     public void LevelComplete() {
+        Debug.Log("levelController.LevelComplete");
         levelModel.data.inProgress = false;
+        app.ui_LevelFactory.ui_LevelController.LevelComplete();
     }
     
-    public void LevelLoad() {
-      //  v.GenerateLevel((int)p_data[0]);
-    }
-
     public void PlayerDie() {
         levelView.FailLevel();
-        /*   if (app.model.game.state == GameState.Game) {
-               v.FailLevel();
-           }*/
     }           
 
     public void OnAsteroidDestroy() {
+        Debug.Log(levelModel.data.asteroidsLeft);
         levelModel.data.asteroidsLeft--;
+        Debug.Log(levelModel.data.asteroidsLeft);
         if (levelModel.data.asteroidsLeft <= 0) {
             levelView.CompleteLevel();
         } 
     }
 
-    public void OnAsteroidSpawn() {
+    public void OnAsteroidSpawn(GameObject av) {
         //move view to view Parent
-     /*   var pa = (AsteroidView)p_target;
-        pa.transform.parent = v.transform; */
+
+        av.transform.parent = levelView.transform; 
     }
 
     public void OnProjectileSpawn() {
@@ -106,31 +98,22 @@ public class LevelController : MonoBehaviour
            pr.transform.parent = v.transform; */
     }
 
-    public void LevelAddScore() {
-    /*    var add_sc = (int)p_data[0];
-
-        m.score += add_sc;
-
-       // Notify(Q_Notification.UiScoreChange, new object[] { m.score }); */
-    }
-
     private IEnumerator SpawnAsteroids() {
 
         yield return new WaitForSeconds(levelModel.data.levelStartDelay);
-        asteroidRefs = new List<GameObject>();
         for (int i = 0; i < levelModel.data.asteroids; i++) {
             if (levelModel.data.inProgress) {
                 UnityEngine.Vector3 spawnPosition = new UnityEngine.Vector3(Random.Range(-levelModel.spawnValues.x, levelModel.spawnValues.x), levelModel.spawnValues.y, levelModel.spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
 
                 var aster = Instantiate(asteroidPrefab, spawnPosition, spawnRotation) as GameObject;
-                asteroidRefs.Add(aster);
-                ((AsteroidController)aster.GetComponentInChildren<AsteroidController>()).OnSpawn();
+                asteroids.Add(aster);
+                aster.GetComponentInChildren<AsteroidController>().OnSpawn();
 
                 yield return new WaitForSeconds(levelModel.data.asteroidSpawnDelay);
             }
             else {
-                foreach (var a in asteroidRefs) {
+                foreach (var a in asteroids) {
                     Destroy(a);
                 }
                 break;

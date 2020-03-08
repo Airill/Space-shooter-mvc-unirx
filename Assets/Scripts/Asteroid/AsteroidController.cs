@@ -23,6 +23,8 @@ public class AsteroidController : MonoBehaviour
         rb.velocity = transform.forward * asteroidModel.speed * (-1);
         rb.angularVelocity = Random.insideUnitSphere * asteroidModel.tumble;
 
-        Destroy(transform.root.gameObject, asteroidModel.lifetime);
+        Destroy(transform.parent.gameObject, asteroidModel.lifetime);
     }
+
+
 }
