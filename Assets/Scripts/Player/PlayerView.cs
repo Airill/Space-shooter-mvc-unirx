@@ -30,8 +30,7 @@ public class PlayerView : MonoBehaviour
    .Subscribe(z => {
 // подписываемся 
            playerController.PlayerDie();
-            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
-            this.gameObject.SetActive(false);
+           
        
    }).AddTo(this);
     }

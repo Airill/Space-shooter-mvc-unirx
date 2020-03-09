@@ -34,7 +34,8 @@ public class LevelView : MonoBehaviour
     }
 
 
-    public void GenerateLevel(int currentLevel) {
+    public void GenerateLevel(LevelData currentLevel) {
+        levelController.LevelGenerate(currentLevel);
         Debug.Log("level generated;");
     }
     
@@ -45,5 +46,9 @@ public class LevelView : MonoBehaviour
 
     public void FailLevel() {
         levelController.LevelFail();
+    }
+
+    public void StartLevel() {
+        levelController.LevelStart();
     }
 }

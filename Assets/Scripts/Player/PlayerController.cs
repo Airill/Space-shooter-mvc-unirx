@@ -39,6 +39,14 @@ public class PlayerController : MonoBehaviour
     }
 
     public void PlayerDie() {
+        playerView.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+        playerView.gameObject.SetActive(false);
         Debug.Log("Controller: player die");
+    }
+
+    public void PlayerRessurect() {
+        playerView.gameObject.SetActive(true);
+        playerView.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        playerModel.lives.Value = playerModel.lives_base;
     }
 }

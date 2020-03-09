@@ -13,9 +13,6 @@ public class LevelModel
     public int levelCount;
     public int currentLevel;
 
-    public int score;
-    public int score_base = 0;
-
     public LevelData data = new LevelData();
 }
 
@@ -30,11 +27,19 @@ public class Boundary
 public class LevelData
 {
     public int levelNum;
-    public bool levelCompleted;
+    public bool isCompleted;
     public bool inProgress = true;
+    private bool isSelected = false;
     public int asteroidsLeft = 10;
     public int asteroids = 10;
     public float asteroidSpeedMultiplier = 1f;
     public float asteroidSpawnDelay = 1f;
     public float levelStartDelay =1f;
+
+    public void SetLevelSelect(bool choice) {
+        isSelected = choice;
+    }
+    public bool GetLevelSelect() {
+        return isSelected;
+    }
 }

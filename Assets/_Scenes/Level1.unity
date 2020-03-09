@@ -1366,6 +1366,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroidPrefab: {fileID: 3240050142623016855, guid: ede8d83ec92be0f46a60340cf3ac200e,
     type: 3}
+  currentLvl:
+    levelNum: 0
+    isCompleted: 0
+    inProgress: 1
+    asteroidsLeft: 10
+    asteroids: 10
+    asteroidSpeedMultiplier: 1
+    asteroidSpawnDelay: 1
+    levelStartDelay: 1
 --- !u!1 &2139887903
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,7 +1437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000008743557781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,6 +1773,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2123420530}
+        m_MethodName: levelRestart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &114000012044273645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1905,7 +1925,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114000012711695859}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1056629873}
+        m_MethodName: UiButtonMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2123420530}
+        m_MethodName: GoToMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &114000015545716843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2399,6 +2441,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1056629873}
         m_MethodName: UiButtonMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2123420530}
+        m_MethodName: GoToMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

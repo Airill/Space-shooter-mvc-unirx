@@ -12,7 +12,7 @@ public class UI_LevelController : MonoBehaviour
 
     public void UiButtonRestart() {
         if (ui_LevelView.menuLevelFailRef) {
-            Destroy(ui_LevelView.menuLevelFailRef);
+            ui_LevelView.menuLevelFailRef.SetActive(false);
         }
         Debug.Log("Level restart");
     }

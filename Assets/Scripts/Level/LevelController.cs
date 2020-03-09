@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
@@ -11,66 +12,77 @@ public class LevelController : MonoBehaviour
     public GameObject asteroidPrefab;
     public ReactiveCollection<GameObject> asteroids = new ReactiveCollection<GameObject>(); //for Unirx
     App app;
+    GlobalControl gc;
+    public LevelData currentLvl;
 
 
     void Start() {
         app = FindObjectOfType<App>();
-
-        LevelStart();
-
-
-
+        gc = FindObjectOfType<GlobalControl>();
+        currentLvl = gc.GetSelectedLevel();
 
         app.playerFactory.playerModel.lives // ReactiveProperty movement
-          .ObserveEveryValueChanged(l => l.Value) // отслеживаем изменения в нем
-          .Subscribe(l => { // подписываемся
-               if (l <= 0) {
-                  PlayerDie();
-              }
-          }).AddTo(this);
+  .ObserveEveryValueChanged(l => l.Value) // отслеживаем изменения в нем
+  .Subscribe(l => { // подписываемся
+              if (l <= 0) {
+          PlayerDie();
+      }
+  }).AddTo(this);
+
+        LevelGenerate(currentLvl);
     }
 
     public void LevelStart() {
-       levelModel.score = levelModel.score_base;
         StartCoroutine(SpawnAsteroids()); 
     }
 
  
            
     public void levelRestart() {
-        levelView.GenerateLevel(levelModel.currentLevel);
+        currentLvl.asteroidsLeft = currentLvl.asteroids;
+        levelView.GenerateLevel(currentLvl);
+        app.playerFactory.playerController.PlayerRessurect();
+
     }
 
-    public void LevelGenerate() {
-        Debug.Log("LevelGenerate");
-/*
-        var num = (int)p_data[0];
-        var cur_lvl = m.data;
-        var base_lbl = m.data_base;
-        var coef = m.genCoef_base;
+    public void LevelGenerate(LevelData curLvl) {
+
+
+        // var num = (int)p_data[0];
+
+        // var base_lbl = m.data_base;
+        // var coef = m.genCoef_base;
 
         // Level generating formulas
-        m.currentLevel = num;
-        cur_lvl.asteroids = (int)(base_lbl.asteroids + base_lbl.asteroids * Mathf.Pow(num, 2) / coef);
-        cur_lvl.asteroidSpeedMultiplier = base_lbl.asteroidSpeedMultiplier + num / coef;
-        cur_lvl.asteroidSpawnDelay = base_lbl.asteroidSpawnDelay - num / coef;
-        cur_lvl.levelStartDelay = base_lbl.levelStartDelay;
+        // m.currentLevel = num;
+        /*
+         curLvl.asteroids = (int)(base_lbl.asteroids + base_lbl.asteroids * Mathf.Pow(num, 2) / coef);
+         curLvl.asteroidSpeedMultiplier = base_lbl.asteroidSpeedMultiplier + num / coef;
+         curLvl.asteroidSpawnDelay = base_lbl.asteroidSpawnDelay - num / coef;
+         curLvl.levelStartDelay = base_lbl.levelStartDelay;
 
-        cur_lvl.asteroidsLeft = cur_lvl.asteroids;
-        cur_lvl.inProgress = true;
-        v.StartLevel();*/
+         curLvl.asteroidsLeft = cur_lvl.asteroids; */
+        currentLvl.asteroidsLeft = currentLvl.asteroids;
+        curLvl.inProgress = true;
+        levelView.StartLevel(); //command levelView to start
+        Debug.Log("LevelGenerated");
     }
      
     public void LevelFail() {
-        levelModel.data.inProgress = false;
+        currentLvl.inProgress = false;
         app.ui_LevelFactory.ui_LevelController.LevelFail();
         Debug.Log("LevelFail");
 
     }
     public void LevelComplete() {
         Debug.Log("levelController.LevelComplete");
-        levelModel.data.inProgress = false;
+        currentLvl.inProgress = false;
+        currentLvl.isCompleted = true;
         app.ui_LevelFactory.ui_LevelController.LevelComplete();
+    }
+
+    public void GoToMap() {
+        SceneManager.LoadScene(0);
     }
     
     public void PlayerDie() {
@@ -78,10 +90,10 @@ public class LevelController : MonoBehaviour
     }           
 
     public void OnAsteroidDestroy() {
-        Debug.Log(levelModel.data.asteroidsLeft);
-        levelModel.data.asteroidsLeft--;
-        Debug.Log(levelModel.data.asteroidsLeft);
-        if (levelModel.data.asteroidsLeft <= 0) {
+        Debug.Log(currentLvl.asteroidsLeft);
+        currentLvl.asteroidsLeft--;
+        Debug.Log(currentLvl.asteroidsLeft);
+        if ((currentLvl.asteroidsLeft <= 0) && (currentLvl.inProgress)) {
             levelView.CompleteLevel();
         } 
     }
@@ -98,11 +110,13 @@ public class LevelController : MonoBehaviour
            pr.transform.parent = v.transform; */
     }
 
+
+
     private IEnumerator SpawnAsteroids() {
 
-        yield return new WaitForSeconds(levelModel.data.levelStartDelay);
-        for (int i = 0; i < levelModel.data.asteroids; i++) {
-            if (levelModel.data.inProgress) {
+        yield return new WaitForSeconds(currentLvl.levelStartDelay);
+        for (int i = 0; i < currentLvl.asteroids; i++) {
+            if (currentLvl.inProgress) {
                 UnityEngine.Vector3 spawnPosition = new UnityEngine.Vector3(Random.Range(-levelModel.spawnValues.x, levelModel.spawnValues.x), levelModel.spawnValues.y, levelModel.spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
 
@@ -110,7 +124,7 @@ public class LevelController : MonoBehaviour
                 asteroids.Add(aster);
                 aster.GetComponentInChildren<AsteroidController>().OnSpawn();
 
-                yield return new WaitForSeconds(levelModel.data.asteroidSpawnDelay);
+                yield return new WaitForSeconds( currentLvl.asteroidSpawnDelay);
             }
             else {
                 foreach (var a in asteroids) {

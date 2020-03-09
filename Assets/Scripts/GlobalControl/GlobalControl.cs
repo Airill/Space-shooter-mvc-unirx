@@ -23,4 +23,15 @@ public class GlobalControl : MonoBehaviour
           //  levels[i].levelNum = i + 1;
         }
     }
+
+    public LevelData GetSelectedLevel() {
+        LevelData currentData;
+        for (int i = 0; i < levels.Length; i++) {
+            if (levels[i].GetLevelSelect()) {
+                int curLevel = i;
+                return levels[curLevel];
+            }
+        }
+        return currentData = new LevelData();
+    }
 }

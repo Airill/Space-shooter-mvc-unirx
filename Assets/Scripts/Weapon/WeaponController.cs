@@ -18,7 +18,7 @@ public class WeaponController : MonoBehaviour
            .Where(_ => Input.GetButton("Fire1"))
            .ThrottleFirst(TimeSpan.FromSeconds(weaponModel.fireRate))
            .Subscribe(_ => {
-               if (app.levelFactory.levelModel.data.inProgress) {
+               if (app.levelFactory.levelController.currentLvl.inProgress) {
                    var sh = Instantiate(shot, shotSpawn.position, shotSpawn.rotation) as GameObject;
                    var pc = ((ProjectileController)sh.GetComponentInChildren<ProjectileController>());
                    pc.OnSpawn();
