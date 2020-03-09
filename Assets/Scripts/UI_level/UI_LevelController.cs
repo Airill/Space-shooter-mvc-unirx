@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UI_LevelController : MonoBehaviour
 {
@@ -14,20 +12,20 @@ public class UI_LevelController : MonoBehaviour
         if (ui_LevelView.menuLevelFailRef) {
             ui_LevelView.menuLevelFailRef.SetActive(false);
         }
-        Debug.Log("Level restart");
     }
     	
     public void LevelComplete() {
         ui_LevelView.menuLevelCompleteRef.SetActive(true);
     }
-    
-
-
+ 
     public void UiButtonMap() {
-				Debug.Log("Map");
     }
 
     public void SetLivesText(int lives) {
         ui_LevelView.textLives.text = ("Lives: " + lives.ToString());
+    }
+
+    public void SetAsteridsLeft(int asLeft) {
+        ui_LevelView.textMission.text = ("Mission: avoid or kill " + asLeft.ToString() + " asteroids");
     }
 }

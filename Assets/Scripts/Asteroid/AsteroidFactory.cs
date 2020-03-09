@@ -8,9 +8,7 @@ public class AsteroidFactory : MonoBehaviour
     public AsteroidModel asteroidModel { get; private set; }
     public AsteroidView asteroidView { get; private set; }
 
-    // Start is called before the first frame update
     void Awake() {
-
         asteroidController = GetComponentInChildren<AsteroidController>();
         asteroidModel = new AsteroidModel();
         asteroidController.asteroidModel = asteroidModel;

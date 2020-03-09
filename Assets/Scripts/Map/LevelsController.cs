@@ -49,10 +49,7 @@ public class LevelsController : MonoBehaviour
     public void LevelChoice(int ch) {
         if ((gc.levels[ch].isCompleted) || (ch == 0) || (gc.levels[ch-1].isCompleted)) {
             gc.levels[ch].SetLevelSelect(true);
-            Debug.Log("level is chosen" + ch);
             SceneManager.LoadScene(1);
         }
-
-
     }
 }

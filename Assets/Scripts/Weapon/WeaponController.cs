@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UniRx;
 using System;
+using MarchingBytes;
+using System.Collections.Generic;
 
 public class WeaponController : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class WeaponController : MonoBehaviour
     public GameObject shot;
     public Transform shotSpawn;
 
+    public string poolName;
+    List<GameObject> goList = new List<GameObject>();
+
     void Start() {
         App app = FindObjectOfType<App>();
 
@@ -19,15 +23,14 @@ public class WeaponController : MonoBehaviour
            .ThrottleFirst(TimeSpan.FromSeconds(weaponModel.fireRate))
            .Subscribe(_ => {
                if (app.levelFactory.levelController.currentLvl.inProgress) {
-                   var sh = Instantiate(shot, shotSpawn.position, shotSpawn.rotation) as GameObject;
-                   var pc = ((ProjectileController)sh.GetComponentInChildren<ProjectileController>());
+                   GameObject go = EasyObjectPool.instance.GetObjectFromPool(poolName, shotSpawn.position, shotSpawn.rotation);
+                   if (go) {
+                       goList.Add(go);
+                   }
+                   var pc = ((ProjectileController)go.GetComponentInChildren<ProjectileController>());
                    pc.OnSpawn();
                }
-
-               //  GetComponent<AudioSource>().Play();
            }).AddTo(this); 
-
-
     }
 }
 

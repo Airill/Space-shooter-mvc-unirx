@@ -9,7 +9,6 @@ public class PlayerFactory : MonoBehaviour
     public PlayerModel playerModel { get; private set; }
     public PlayerView playerView { get; private set; }
 
-    // Start is called before the first frame update
     void Awake()
     {
         this.playerController = GetComponentInChildren<PlayerController>();
@@ -21,9 +20,4 @@ public class PlayerFactory : MonoBehaviour
         playerView.playerController = playerController;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

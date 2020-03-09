@@ -8,9 +8,7 @@ public class LevelFactory : MonoBehaviour
     public LevelModel levelModel { get; private set; }
     public LevelView levelView { get; private set; }
 
-    // Start is called before the first frame update
     void Awake() {
-
         levelController = GetComponentInChildren<LevelController>();
         levelModel = new LevelModel();
         levelController.levelModel = levelModel;

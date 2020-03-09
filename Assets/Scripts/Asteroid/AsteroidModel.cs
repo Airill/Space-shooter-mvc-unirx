@@ -15,6 +15,6 @@ public class AsteroidModel
     public int damage = 1;
     public int scoreValue = 120;
     public float speed = 5f;
-    public float lifetime = 10f;
+    public float lifetime = 5f;
     public float tumble = 5f;
 }

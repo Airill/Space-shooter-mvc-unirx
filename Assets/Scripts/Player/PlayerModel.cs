@@ -13,13 +13,6 @@ public class PlayerModel
     public ReactiveProperty<int> lives = new ReactiveProperty<int>(3);
     public ReactiveProperty<Vector3> movement = new ReactiveProperty<Vector3>();
     public ReactiveProperty<Vector3> position = new ReactiveProperty<Vector3>();
-    // public float tilt;
-    // public float fireRate;
     public int speed = 8;
 
-    
-    
-
-    // Some semi-private stuff
-    public float nextFire;
 }

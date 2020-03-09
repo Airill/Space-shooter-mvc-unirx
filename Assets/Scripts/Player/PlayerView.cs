@@ -12,26 +12,23 @@ public class PlayerView : MonoBehaviour
     private void Start() {
         rb = GetComponent<Rigidbody>();
 
-        playerModel.movement // ReactiveProperty movement
-           .ObserveEveryValueChanged(x => x.Value) // отслеживаем изменения в нем
-           .Subscribe(xs => { // подписываемся
+        playerModel.movement 
+           .ObserveEveryValueChanged(x => x.Value) 
+           .Subscribe(xs => { 
                SetDirection(xs);
             }).AddTo(this);
 
-        playerModel.position // ReactiveProperty position
-           .ObserveEveryValueChanged(y => y.Value) // отслеживаем изменения в нем
-           .Subscribe(ys => { // подписываемся 
+        playerModel.position 
+           .ObserveEveryValueChanged(y => y.Value)
+           .Subscribe(ys => { 
                SetPosition(ys);
            }).AddTo(this);
 
-        playerModel.lives // ReactiveProperty lives
-   .ObserveEveryValueChanged(z => z.Value) // отслеживаем изменения в нем
+        playerModel.lives 
+   .ObserveEveryValueChanged(z => z.Value) 
    .Where(z => z <= 0)
    .Subscribe(z => {
-// подписываемся 
-           playerController.PlayerDie();
-           
-       
+           playerController.PlayerDie();   
    }).AddTo(this);
     }
 
@@ -41,9 +38,9 @@ public class PlayerView : MonoBehaviour
             rb.velocity = new UnityEngine.Vector3(dir.x * playerModel.speed, 0.0f, dir.z * playerModel.speed);
         }        
     }
+
     public void SetPosition(Vector3 pos) {
         Rigidbody rb = GetComponent<Rigidbody>();
-
         if (pos != null) {
             rb.position = new UnityEngine.Vector3(pos.x, 0.0f, pos.z);
         }

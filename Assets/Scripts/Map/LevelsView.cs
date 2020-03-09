@@ -5,15 +5,5 @@ using UnityEngine;
 public class LevelsView : MonoBehaviour
 {
     public GameObject[] levelButtons;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

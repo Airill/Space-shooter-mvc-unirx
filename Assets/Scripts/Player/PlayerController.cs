@@ -35,18 +35,16 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int dmg) {
         playerModel.lives.Value -= dmg;
-        Debug.Log("Damage taken!");
     }
 
     public void PlayerDie() {
         playerView.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
         playerView.gameObject.SetActive(false);
-        Debug.Log("Controller: player die");
     }
 
     public void PlayerRessurect() {
         playerView.gameObject.SetActive(true);
-        playerView.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        playerView.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         playerModel.lives.Value = playerModel.lives_base;
     }
 }

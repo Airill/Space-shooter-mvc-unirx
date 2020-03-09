@@ -6,17 +6,7 @@ public class AsteroidController : MonoBehaviour
 {
     public AsteroidModel asteroidModel { get; set; }
     public AsteroidView asteroidView { get; set; }
-    // Start is called before the first frame update
-    void Start()
-    {
-       // OnSpawn();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void OnSpawn() {
         var rb = asteroidView.GetComponent<Rigidbody>();
 
@@ -25,6 +15,4 @@ public class AsteroidController : MonoBehaviour
 
         Destroy(transform.parent.gameObject, asteroidModel.lifetime);
     }
-
-
 }
